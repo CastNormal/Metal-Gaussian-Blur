@@ -17,7 +17,7 @@
 int main() {
     MetalContext context;
     
-    FILE *file = fopen("Metal Gaussian Blur/assets/test2.qoi", "rb");
+    FILE *file = fopen("./assets/test2.qoi", "rb");
     
     if (file == NULL) {
         perror("failed to open file\n");

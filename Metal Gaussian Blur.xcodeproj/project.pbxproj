@@ -32,30 +32,47 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		DB69A39F3081D6E00063C49E /* Exceptions for "Metal Gaussian Blur" folder in "Copy Files" phase from "Metal Gaussian Blur" target */ = {
+		DB2A675B308348870016EAEF /* Exceptions for "assets" folder in "Copy Files" phase from "Metal Gaussian Blur" target */ = {
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			buildPhase = DBEB5200307DEEB700BC26D3 /* CopyFiles */;
 			membershipExceptions = (
-				assets/test.qoi,
+				test.qoi,
 			);
 		};
-		DB69A3AB3081E1F80063C49E /* Exceptions for "Metal Gaussian Blur" folder in "Compile Sources" phase from "Metal Gaussian Blur" target */ = {
+		DB2A6762308348BD0016EAEF /* Exceptions for "include" folder in "Compile Sources" phase from "Metal Gaussian Blur" target */ = {
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			buildPhase = DBEB51FE307DEEB700BC26D3 /* Sources */;
 			membershipExceptions = (
-				include/GaussianFilter.hpp,
+				GaussianFilter.hpp,
 			);
 		};
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		DB69A39B3081D6DF0063C49E /* Metal Gaussian Blur */ = {
+		DB2A6759308348860016EAEF /* assets */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				DB69A3AB3081E1F80063C49E /* Exceptions for "Metal Gaussian Blur" folder in "Compile Sources" phase from "Metal Gaussian Blur" target */,
-				DB69A39F3081D6E00063C49E /* Exceptions for "Metal Gaussian Blur" folder in "Copy Files" phase from "Metal Gaussian Blur" target */,
+				DB2A675B308348870016EAEF /* Exceptions for "assets" folder in "Copy Files" phase from "Metal Gaussian Blur" target */,
 			);
-			path = "Metal Gaussian Blur";
+			path = assets;
+			sourceTree = "<group>";
+		};
+		DB2A6760308348BC0016EAEF /* include */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DB2A6762308348BD0016EAEF /* Exceptions for "include" folder in "Compile Sources" phase from "Metal Gaussian Blur" target */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		DB2A6766308348C10016EAEF /* src */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = src;
+			sourceTree = "<group>";
+		};
+		DB2A676B308348C80016EAEF /* shaders */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = shaders;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -79,7 +96,10 @@
 			children = (
 				DBEB520E307DF1B400BC26D3 /* Frameworks */,
 				DBEB5203307DEEB700BC26D3 /* Products */,
-				DB69A39B3081D6DF0063C49E /* Metal Gaussian Blur */,
+				DB2A6759308348860016EAEF /* assets */,
+				DB2A6760308348BC0016EAEF /* include */,
+				DB2A6766308348C10016EAEF /* src */,
+				DB2A676B308348C80016EAEF /* shaders */,
 			);
 			sourceTree = "<group>";
 		};
@@ -117,7 +137,10 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				DB69A39B3081D6DF0063C49E /* Metal Gaussian Blur */,
+				DB2A6759308348860016EAEF /* assets */,
+				DB2A6760308348BC0016EAEF /* include */,
+				DB2A6766308348C10016EAEF /* src */,
+				DB2A676B308348C80016EAEF /* shaders */,
 			);
 			name = "Metal Gaussian Blur";
 			packageProductDependencies = (
