@@ -35,13 +35,13 @@
     int pos = tid.y * cache_width + tid.x + gaussianKernelSize - 1;
     
     float4 mid = sharedBlock[pos] * gaussianKernel[0];
-    float4 dot = mid;
+    float4 weighted_sum = mid;
     
     for (int i = 1; i < gaussianKernelSize; i++) {
-        dot += (sharedBlock[pos - i] + sharedBlock[pos + i]) * gaussianKernel[i];
+        weighted_sum += (sharedBlock[pos - i] + sharedBlock[pos + i]) * gaussianKernel[i];
     }
     
-    out.write(dot, gid);
+    out.write(weighted_sum, gid);
 }
 
 
@@ -74,11 +74,11 @@
     
     int pos = tid.x * cache_height + tid.y + gaus_kernel_size - 1;
     float4 mid = sharedBlock[pos] * gaus_kernel[0];
-    float4 dot = mid;
+    float4 weighted_sum = mid;
     
     for (int i = 1; i < gaus_kernel_size; i++) {
-        dot += (sharedBlock[pos - i] + sharedBlock[pos + i]) * gaus_kernel[i];
+        weighted_sum += (sharedBlock[pos - i] + sharedBlock[pos + i]) * gaus_kernel[i];
     }
     
-    out[gid.x + gid.y * width] = uchar4(metal::saturate(dot) * 255 + 0.5f);
+    out[gid.x + gid.y * width] = uchar4(metal::saturate(weighted_sum) * 255 + 0.5f);
 }

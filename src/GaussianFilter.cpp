@@ -13,69 +13,63 @@ horizontalPipelineState(nullptr), verticalPipelineState(nullptr), intermediateTe
     verticalPipelineState = createPipelineState(defaultLibrary.get(), "gaussian_blur_vertical");
 
     
-    MTL::TextureDescriptor *desc = MTL::TextureDescriptor::texture2DDescriptor(MTL::PixelFormatRGBA32Float,    this->width, this->height, false);
+    MTL::TextureDescriptor *desc = MTL::TextureDescriptor::texture2DDescriptor(MTL::PixelFormatRGBA32Float, width, height, false);
     
     if (!desc)
         throw std::runtime_error("Failed to create texture descriptor");
     
     desc->setUsage(MTL::TextureUsageShaderRead | MTL::TextureUsageShaderWrite);
-    this->intermediateTexture = NS::TransferPtr(device->newTexture(desc));
+    intermediateTexture = NS::TransferPtr(device->newTexture(desc));
     
     if (!intermediateTexture)
         throw std::runtime_error("Failed to create texture.");
             
     
 }
-/*
-GaussianFilter::~GaussianFilter() {
-    if (this->horizontalPipelineState) this->horizontalPipelineState->release();
-    if (this->verticalPipelineState) this->verticalPipelineState->release();
-    if (this->intermediateTexture) this->intermediateTexture->release();
-}
-*/
-void GaussianFilter::encode(MTL::CommandBuffer* commandBuffer, MTL::Buffer* inputBuffer, int stddev) {
+
+void GaussianFilter::encode(MTL::CommandBuffer* commandBuffer, MTL::Buffer* inputBuffer, int sigma) {
     
-    half_gaussean1d(stddev);
+    generateGaussianKernel(sigma);
     
-    int w = 32;
-    int h = 8;
+    int blockWidth = 32;
+    int blockHeight = 8;
     
-    MTL::Size gridSize = MTL::Size(this->width, this->height, 1);
-    MTL::Size threadBlock = MTL::Size(w, h, 1);
+    MTL::Size gridSize = MTL::Size(width, height, 1);
+    MTL::Size threadsPerThreadgroup = MTL::Size(blockWidth, blockHeight, 1);
     
     //Horizontal Pass
     
     MTL::ComputeCommandEncoder* horizontalEncoder = commandBuffer->computeCommandEncoder();
-    horizontalEncoder->setTexture(this->intermediateTexture.get(), 0);
-    horizontalEncoder->setComputePipelineState(this->horizontalPipelineState.get());
+    horizontalEncoder->setTexture(intermediateTexture.get(), 0);
+    horizontalEncoder->setComputePipelineState(horizontalPipelineState.get());
     horizontalEncoder->setBuffer(inputBuffer, 0, 0);
-    horizontalEncoder->setBytes(this->kernel.data(), this->kernelSize*sizeof(float), 1);
-    horizontalEncoder->setBytes(&this->kernelSize, sizeof(int), 2);
-    horizontalEncoder->setThreadgroupMemoryLength((w + (this->kernelSize-1)*2)*h*sizeof(float)*4, 0);
+    horizontalEncoder->setBytes(kernel.data(), kernelSize*sizeof(float), 1);
+    horizontalEncoder->setBytes(&kernelSize, sizeof(int), 2);
+    horizontalEncoder->setThreadgroupMemoryLength((blockWidth + (kernelSize-1)*2)*blockHeight*sizeof(float)*4, 0);
 
     //Dispatch
     
-    horizontalEncoder->dispatchThreads(gridSize, threadBlock);
+    horizontalEncoder->dispatchThreads(gridSize, threadsPerThreadgroup);
     horizontalEncoder->endEncoding();
     
-    w = 8;
-    h = 32;
+    blockWidth = 8;
+    blockHeight = 32;
     
-    threadBlock = MTL::Size(w, h, 1);
+    threadsPerThreadgroup = MTL::Size(blockWidth, blockHeight, 1);
     
     //Vertical Pass
     
     MTL::ComputeCommandEncoder *verticalEncoder = commandBuffer->computeCommandEncoder();
-    verticalEncoder->setComputePipelineState(this->verticalPipelineState.get());
-    verticalEncoder->setTexture(this->intermediateTexture.get(), 0);
+    verticalEncoder->setComputePipelineState(verticalPipelineState.get());
+    verticalEncoder->setTexture(intermediateTexture.get(), 0);
     verticalEncoder->setBuffer(inputBuffer, 0, 0);
-    verticalEncoder->setBytes(this->kernel.data(), this->kernelSize*sizeof(float), 1);
-    verticalEncoder->setBytes(&this->kernelSize, sizeof(int), 2);
-    verticalEncoder->setThreadgroupMemoryLength(w * (h + (this->kernelSize - 1) * 2) * sizeof(float) * 4, 0);
+    verticalEncoder->setBytes(kernel.data(), kernelSize*sizeof(float), 1);
+    verticalEncoder->setBytes(&kernelSize, sizeof(int), 2);
+    verticalEncoder->setThreadgroupMemoryLength(blockWidth * (blockHeight + (kernelSize - 1) * 2) * sizeof(float) * 4, 0);
     
     //Dispatch
     
-    verticalEncoder->dispatchThreads(gridSize, threadBlock);
+    verticalEncoder->dispatchThreads(gridSize, threadsPerThreadgroup);
     verticalEncoder->endEncoding();
 }
 
@@ -90,7 +84,7 @@ NS::SharedPtr<MTL::ComputePipelineState> GaussianFilter::createPipelineState(MTL
         return nullptr;
     }
     
-    NS::SharedPtr<MTL::ComputePipelineState> pipelineState = NS::TransferPtr(this->device->newComputePipelineState(func.get(), &error));
+    NS::SharedPtr<MTL::ComputePipelineState> pipelineState = NS::TransferPtr(device->newComputePipelineState(func.get(), &error));
     
     if (!pipelineState) {
         if (error){
@@ -101,22 +95,22 @@ NS::SharedPtr<MTL::ComputePipelineState> GaussianFilter::createPipelineState(MTL
     return pipelineState;
 }
 
-void GaussianFilter::half_gaussean1d(int sigma) {
+void GaussianFilter::generateGaussianKernel(int sigma) {
     
     int radius = 3 * sigma;
     if (sigma < 1 || radius >= MAX_KERNEL_SIZE) throw std::invalid_argument("Invalid standard deviation");
 
     
     float sum = 0;
-    this->kernelSize = radius + 1;
+    kernelSize = radius + 1;
     
-    for (int i = 0; i <= this->kernelSize; i++) {
+    for (int i = 0; i < kernelSize; i++) {
         float val = std::expf(-(i * i) / (2.0f * sigma * sigma));
-        this->kernel[i] = val;
+        kernel[i] = val;
         sum += val;
         if (i > 0) sum += val; //sum twice due to symmetry
     }
     
     //norm
-    for (int i = 0; i <= sigma; i++) this->kernel[i] /= sum;
+    for (int i = 0; i < kernelSize; i++) kernel[i] /= sum;
 }
