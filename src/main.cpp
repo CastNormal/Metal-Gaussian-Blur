@@ -27,7 +27,12 @@ int main(int argc, char** argv) {
     
     //buffer contains raw RGBA 
     void *image = qoi_decoder(file, &header_info);
-    uint64_t pixel_size = header_info.width*header_info.height*header_info.channels;
+    
+    if (image == nullptr) {
+        perror("failed to load image.");
+    }
+    
+    uint64_t pixel_size = uint64_t(header_info.width) * header_info.height * header_info.channels;
     fclose(file);
     
     //wrap buffer around MTL::Buffer

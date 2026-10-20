@@ -1,11 +1,12 @@
 #pragma once
 #include <Metal/Metal.hpp>
+#include <iostream>
+#include <stdexcept>
 
 
 class MetalContext {
 public:
     MetalContext();
-    ~MetalContext();
     
     
     MetalContext(const MetalContext&) = delete;
@@ -15,6 +16,6 @@ public:
     MTL::CommandQueue *commandQueue();
 
 private:
-    MTL::Device *_device;
-    MTL::CommandQueue *_commandQueue;
+    NS::SharedPtr<MTL::Device> _device;
+    NS::SharedPtr<MTL::CommandQueue> _commandQueue;
 };

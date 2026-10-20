@@ -11,14 +11,12 @@ class GaussianFilter {
 public:
     GaussianFilter(MTL::Device* device, int width, int height);
     
-    ~GaussianFilter();
-    
     //prevent accidental copying and double releases
     GaussianFilter(const GaussianFilter&) = delete;
     GaussianFilter& operator=(const GaussianFilter&) = delete;
     
     // Execute horizontal and vertical passes
-    void encode(MTL::CommandBuffer* commandBuffer, MTL::Buffer* inputBuffer, int stddev);
+    void encode(MTL::CommandBuffer* commandBuffer, MTL::Buffer* inputBuffer, int sigma);
 
 private:
     MTL::Device* device;
@@ -27,13 +25,13 @@ private:
     std::array<float, MAX_KERNEL_SIZE> kernel;
     int kernelSize;
     
-    MTL::ComputePipelineState* horizontalPipelineState;
-    MTL::ComputePipelineState* verticalPipelineState;
-    MTL::Texture* intermediateTexture;
+    NS::SharedPtr<MTL::ComputePipelineState> horizontalPipelineState;
+    NS::SharedPtr<MTL::ComputePipelineState> verticalPipelineState;
+    NS::SharedPtr<MTL::Texture> intermediateTexture;
     
-    MTL::ComputePipelineState* createPipelineState(MTL::Library* library, const char* functionName);
+    NS::SharedPtr<MTL::ComputePipelineState> createPipelineState(MTL::Library* library, const char* functionName);
     
-    void half_gaussean1d(int stddev);
+    void half_gaussean1d(int sigma);
 };
 
 #endif
