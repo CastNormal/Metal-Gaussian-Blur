@@ -5,7 +5,8 @@
 #include <iostream>
 #include <numbers>
 #include <stdexcept>
-#define MAX_KERNEL_SIZE 16
+
+#include "GaussianKernel.hpp"
 
 class GaussianFilter {
 public:
@@ -20,8 +21,6 @@ private:
     MTL::Device* device;
     int width;
     int height;
-    std::array<float, MAX_KERNEL_SIZE> kernel;
-    int kernelSize;
     
     NS::SharedPtr<MTL::ComputePipelineState> horizontalPipelineState;
     NS::SharedPtr<MTL::ComputePipelineState> verticalPipelineState;

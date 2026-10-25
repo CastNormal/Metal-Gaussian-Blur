@@ -15,6 +15,8 @@
 #define QOI_OP_LUMA  0x80
 #define QOI_OP_RUN   0xc0
 #define QOI_FOUNDATION_HEADER  0x716F6966 // Avoid macro name collision keywords
+#define QOI_MAX_WIDTH 4294967295
+#define QOI_MAX_HEIGHT 4294967295
 
 #define QOI_RGBA 4
 
@@ -59,12 +61,19 @@ inline void write_uint32(FILE *file, uint32_t value) {
     fwrite(bytes, 1, 4, file);
 }
 
-// FIXED: Hardcoded to parse incoming streams using a uniform 4-byte RGBA stride
-void qoi_encoder(uint8_t *pixels, QOI_header_info info, const char* file_name) {
+// FIXED: Hardcoded to parse incoming streams using 4-byte RGBA 
+inline bool qoi_encoder(uint8_t *pixels, QOI_header_info info, const char* file_name) {
+    if (info.width <= 0 || info.width >= QOI_MAX_WIDTH || info.height <= 0 || info.height >= QOI_MAX_HEIGHT)
+        return false;
+    
+    if (info.colorspace < 0 || info.colorspace > 1 || info.channels < 3 || info.channels > 4) return false;
+        
+        
     FILE *file = fopen(file_name, "wb");
     if (file == NULL) {
-        perror("failed to open output file.");
-        return;
+        perror("fopen failed.");
+        printf("file name: %s\n", file_name);
+        return false;
     }
 
     write_uint32(file, QOI_FOUNDATION_HEADER);
@@ -144,25 +153,50 @@ void qoi_encoder(uint8_t *pixels, QOI_header_info info, const char* file_name) {
     // Stream termination marker
     for (int i = 0; i < 7; i++) fputc(0, file);
     fputc(1, file);
-    fclose(file);
+
+    const bool write_success = (ferror(file) == 0);
+    const bool close_success = (fclose(file) == 0);
+
+    return write_success && close_success;
 }
 
-// FIXED: Cleaned configuration mappings to ensure strict 4-byte out array stride writebacks
-void *qoi_decoder(FILE *file, QOI_header_info *info) {
+inline void *decoder_fail_condition(void* buffer) {
+    if (buffer) free(buffer);
+    
+    return NULL;
+}
+
+inline bool qoi_read_byte(FILE* file, uint8_t* value) {
+    int byte = fgetc(file);
+
+    if (byte == EOF)
+        return false;
+
+    *value = (uint8_t)byte;
+    return true;
+}
+    
+inline void *qoi_decoder(FILE *file, QOI_header_info *info) {
+    if (file == NULL || info == NULL) return NULL;
     if (read_uint32(file) != QOI_FOUNDATION_HEADER) return NULL;
     info->width = read_uint32(file);
     info->height = read_uint32(file);
     fgetc(file); // Discard incoming file's native channel configurations info block
     info->channels = QOI_RGBA; // Enforce layout alignment
     info->colorspace = fgetc(file);
+    
 
     uint64_t size = (uint64_t)info->width * info->height * QOI_RGBA;
     uint64_t buffer_size = round_to_page_size(size);
+    
+    
+    if (info->width <= 0 || info->width >= QOI_MAX_WIDTH || info->height <= 0 || info->height >= QOI_MAX_HEIGHT) return NULL;
+        
+        
     void *main_buffer = NULL;
 
-    if (posix_memalign(&main_buffer, sysconf(_SC_PAGESIZE), buffer_size) != 0) {
+    if (posix_memalign(&main_buffer, sysconf(_SC_PAGESIZE), buffer_size) != 0)
         return NULL;
-    }
     
     uint8_t *buffer = (uint8_t*)main_buffer;
     uint64_t i = 0;
@@ -171,17 +205,14 @@ void *qoi_decoder(FILE *file, QOI_header_info *info) {
 
     while (i < size) {
         int c = fgetc(file);
-        if (c == EOF) break;
+        if (c == EOF) return decoder_fail_condition(main_buffer);
 
         if (c == QOI_OP_RGB) {
-            pixel.r = fgetc(file);
-            pixel.g = fgetc(file);
-            pixel.b = fgetc(file);
+            if (!qoi_read_byte(file, &pixel.r) || !qoi_read_byte(file, &pixel.g) || !qoi_read_byte(file, &pixel.b))
+                return decoder_fail_condition(main_buffer);
         } else if (c == QOI_OP_RGBA) {
-            pixel.r = fgetc(file);
-            pixel.g = fgetc(file);
-            pixel.b = fgetc(file);
-            pixel.a = fgetc(file);
+            if (!qoi_read_byte(file, &pixel.r) || !qoi_read_byte(file, &pixel.g) || !qoi_read_byte(file, &pixel.b) || !qoi_read_byte(file, &pixel.a))
+                return decoder_fail_condition(main_buffer);
         } else {
             switch (c & 0xc0) {
                 case QOI_OP_INDEX:
@@ -195,7 +226,7 @@ void *qoi_decoder(FILE *file, QOI_header_info *info) {
                 case QOI_OP_LUMA: {
                     int vg = (c & 0x3f) - 32;
                     int c2 = fgetc(file);
-                    if (c2 == EOF) break; // FIXED: Added safe stream bounds catch
+                    if (c2 == EOF) return decoder_fail_condition(main_buffer);
                     int dr_g = ((c2 >> 4) & 0x0f) - 8;
                     int db_g = (c2 & 0x0f) - 8;
                     pixel.r += vg + dr_g;
@@ -205,13 +236,26 @@ void *qoi_decoder(FILE *file, QOI_header_info *info) {
                 }
                 case QOI_OP_RUN: {
                     uint8_t run_len = (c & 0x3f) + 1;
-                    for (uint8_t r = 0; r < run_len && i < size; r++) {
+
+                    if (run_len > (size - i) / QOI_RGBA)
+                        return decoder_fail_condition(main_buffer);
+
+                    for (uint8_t r = 0; r < run_len; ++r) {
                         buffer[i]   = pixel.r;
                         buffer[i+1] = pixel.g;
                         buffer[i+2] = pixel.b;
-                        buffer[i+3] = pixel.a; // Unconditionally writes safe byte layouts
+                        buffer[i+3] = pixel.a;
+
                         i += QOI_RGBA;
                     }
+
+                    int r_index = (
+                        pixel.r * 3 + pixel.g * 5 +
+                        pixel.b * 7 + pixel.a * 11
+                    ) % 64;
+
+                    local_lookuptable[r_index] = pixel;
+
                     continue;
                 }
             }
@@ -228,7 +272,16 @@ void *qoi_decoder(FILE *file, QOI_header_info *info) {
             i += QOI_RGBA;
         }
     }
+    
+    
+    const uint8_t expected_end[8] = {0, 0, 0, 0, 0, 0, 0, 1};
+
+    uint8_t actual_end[8];
+
+    if (fread(actual_end, 1, 8, file) != 8 || memcmp(actual_end, expected_end, 8) != 0)
+        return decoder_fail_condition(main_buffer);
+    
     return main_buffer;
 }
 
-#endif
+#endif // !QOI_H_

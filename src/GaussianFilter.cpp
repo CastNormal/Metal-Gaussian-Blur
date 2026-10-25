@@ -2,7 +2,7 @@
 
 
 GaussianFilter::GaussianFilter(MTL::Device* device, int width, int height): device(device), width(width), height(height),
-horizontalPipelineState(nullptr), verticalPipelineState(nullptr), intermediateTexture(nullptr), kernelSize(0), kernel(std::array<float, MAX_KERNEL_SIZE>()) {
+horizontalPipelineState(nullptr), verticalPipelineState(nullptr), intermediateTexture(nullptr) {
     
     NS::SharedPtr<MTL::Library> defaultLibrary = NS::TransferPtr(device->newDefaultLibrary());
     
@@ -29,7 +29,8 @@ horizontalPipelineState(nullptr), verticalPipelineState(nullptr), intermediateTe
 
 void GaussianFilter::encode(MTL::CommandBuffer* commandBuffer, MTL::Buffer* inputBuffer, int sigma) {
     
-    generateGaussianKernel(sigma);
+    GaussianKernel gaus;
+    ::generateGaussianKernel(sigma, gaus);
     
     int blockWidth = 32;
     int blockHeight = 8;
@@ -43,9 +44,9 @@ void GaussianFilter::encode(MTL::CommandBuffer* commandBuffer, MTL::Buffer* inpu
     horizontalEncoder->setTexture(intermediateTexture.get(), 0);
     horizontalEncoder->setComputePipelineState(horizontalPipelineState.get());
     horizontalEncoder->setBuffer(inputBuffer, 0, 0);
-    horizontalEncoder->setBytes(kernel.data(), kernelSize*sizeof(float), 1);
-    horizontalEncoder->setBytes(&kernelSize, sizeof(int), 2);
-    horizontalEncoder->setThreadgroupMemoryLength((blockWidth + (kernelSize-1)*2)*blockHeight*sizeof(float)*4, 0);
+    horizontalEncoder->setBytes(gaus.kernel.data(), gaus.size*sizeof(float), 1);
+    horizontalEncoder->setBytes(&gaus.size, sizeof(int), 2);
+    horizontalEncoder->setThreadgroupMemoryLength((blockWidth + (gaus.size-1)*2)*blockHeight*sizeof(float)*4, 0);
 
     //Dispatch
     
@@ -63,9 +64,9 @@ void GaussianFilter::encode(MTL::CommandBuffer* commandBuffer, MTL::Buffer* inpu
     verticalEncoder->setComputePipelineState(verticalPipelineState.get());
     verticalEncoder->setTexture(intermediateTexture.get(), 0);
     verticalEncoder->setBuffer(inputBuffer, 0, 0);
-    verticalEncoder->setBytes(kernel.data(), kernelSize*sizeof(float), 1);
-    verticalEncoder->setBytes(&kernelSize, sizeof(int), 2);
-    verticalEncoder->setThreadgroupMemoryLength(blockWidth * (blockHeight + (kernelSize - 1) * 2) * sizeof(float) * 4, 0);
+    verticalEncoder->setBytes(gaus.kernel.data(), gaus.size*sizeof(float), 1);
+    verticalEncoder->setBytes(&gaus.size, sizeof(int), 2);
+    verticalEncoder->setThreadgroupMemoryLength(blockWidth * (blockHeight + (gaus.size - 1) * 2) * sizeof(float) * 4, 0);
     
     //Dispatch
     
@@ -93,24 +94,4 @@ NS::SharedPtr<MTL::ComputePipelineState> GaussianFilter::createPipelineState(MTL
     }
     
     return pipelineState;
-}
-
-void GaussianFilter::generateGaussianKernel(int sigma) {
-    
-    int radius = 3 * sigma;
-    if (sigma < 1 || radius >= MAX_KERNEL_SIZE) throw std::invalid_argument("Invalid standard deviation");
-
-    
-    float sum = 0;
-    kernelSize = radius + 1;
-    
-    for (int i = 0; i < kernelSize; i++) {
-        float val = std::expf(-(i * i) / (2.0f * sigma * sigma));
-        kernel[i] = val;
-        sum += val;
-        if (i > 0) sum += val; //sum twice due to symmetry
-    }
-    
-    //norm
-    for (int i = 0; i < kernelSize; i++) kernel[i] /= sum;
 }
