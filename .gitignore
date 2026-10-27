@@ -1,6 +1,5 @@
-metal-cpp-main/
-build/
 .DS_Store
-Metal Gaussian Blur.xcodeproj/
-Metal Gaussian Blur.xcodeproj/
-
+DerivedData/
+build/
+xcuserdata/
+*.xcuserstate

@@ -52,13 +52,13 @@ void GPUImplementation(const int sigma) {
     
     filter.encode(commandBuffer, buffer.get(), sigma);
     
-    const auto start = std::chrono::high_resolution_clock::now();
+    const auto start = std::chrono::steady_clock::now();
     
     commandBuffer->commit();
     commandBuffer->waitUntilCompleted();
     
     
-    const auto end = std::chrono::high_resolution_clock::now();
+    const auto end = std::chrono::steady_clock::now();
     
     
     if (commandBuffer->status() != MTL::CommandBufferStatusCompleted) {
@@ -86,7 +86,7 @@ void GPUImplementation(const int sigma) {
     qoi_encoder(static_cast<uint8_t*>(buffer->contents()), imgContent.headerInfo, "output.qoi");
 }
 
-int main(int argc, char** argv) {
+int main() {
     auto autoReleasePool = NS::TransferPtr(NS::AutoreleasePool::alloc()->init());
 
     try {

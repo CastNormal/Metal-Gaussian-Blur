@@ -1,0 +1,703 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DB53585830898DB600F88345 /* test_kernel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB53585730898D5200F88345 /* test_kernel.cpp */; };
+		DB53586230898E8200F88345 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBEB5213307DF1C400BC26D3 /* Metal.framework */; };
+		DB53586330898E9200F88345 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBEB520F307DF1B500BC26D3 /* Foundation.framework */; };
+		DB53586430898E9B00F88345 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBEB5211307DF1BB00BC26D3 /* QuartzCore.framework */; };
+		DB5358A5308BDE3100F88345 /* test_cpu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB5358A4308BDE2800F88345 /* test_cpu.cpp */; };
+		DB5358A7308BDE3B00F88345 /* test_qoi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB5358A6308BDE3600F88345 /* test_qoi.cpp */; };
+		DB5358D2308D44AC00F88345 /* test_gpu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB5358A3308BDE1200F88345 /* test_gpu.cpp */; };
+		DB5358E9308DC5B900F88345 /* benchmark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB5358423088149D00F88345 /* benchmark.cpp */; };
+		DB5358EC308DCFC000F88345 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBEB520F307DF1B500BC26D3 /* Foundation.framework */; };
+		DB5358ED308DCFCD00F88345 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBEB5211307DF1BB00BC26D3 /* QuartzCore.framework */; };
+		DB535957308DD1C400F88345 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBEB5213307DF1C400BC26D3 /* Metal.framework */; };
+		DB5359E3308E848E00F88345 /* naive.metal in Sources */ = {isa = PBXBuildFile; fileRef = DB5359E2308E848800F88345 /* naive.metal */; };
+		DB535A13308EA3A500F88345 /* NaiveGaussianFilter.hpp in Sources */ = {isa = PBXBuildFile; fileRef = DB535A12308E9F9500F88345 /* NaiveGaussianFilter.hpp */; };
+		DB535A9F308FAFFA00F88345 /* NaiveGaussianFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB535A9E308FAFED00F88345 /* NaiveGaussianFilter.cpp */; };
+		DB535AA5308FD6B400F88345 /* NaiveGaussianFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB535A9E308FAFED00F88345 /* NaiveGaussianFilter.cpp */; };
+		DB535AA6308FDBC800F88345 /* naive.metal in Sources */ = {isa = PBXBuildFile; fileRef = DB5359E2308E848800F88345 /* naive.metal */; };
+		DBEB5210307DF1B500BC26D3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBEB520F307DF1B500BC26D3 /* Foundation.framework */; };
+		DBEB5212307DF1BB00BC26D3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBEB5211307DF1BB00BC26D3 /* QuartzCore.framework */; };
+		DBEB5214307DF1C400BC26D3 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBEB5213307DF1C400BC26D3 /* Metal.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DB53584D30898BF400F88345 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		DB5358DF308DC5AE00F88345 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		DBEB5200307DEEB700BC26D3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		DB5358423088149D00F88345 /* benchmark.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = benchmark.cpp; sourceTree = "<group>"; };
+		DB53584F30898BF400F88345 /* Gaussian Tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Gaussian Tests"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB53585730898D5200F88345 /* test_kernel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test_kernel.cpp; sourceTree = "<group>"; };
+		DB5358A3308BDE1200F88345 /* test_gpu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test_gpu.cpp; sourceTree = "<group>"; };
+		DB5358A4308BDE2800F88345 /* test_cpu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test_cpu.cpp; sourceTree = "<group>"; };
+		DB5358A6308BDE3600F88345 /* test_qoi.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test_qoi.cpp; sourceTree = "<group>"; };
+		DB5358E1308DC5AE00F88345 /* Benchmark Gaussian Blur */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Benchmark Gaussian Blur"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB5358EA308DCFBA00F88345 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		DB5359E2308E848800F88345 /* naive.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = naive.metal; sourceTree = "<group>"; };
+		DB535A12308E9F9500F88345 /* NaiveGaussianFilter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NaiveGaussianFilter.hpp; sourceTree = "<group>"; };
+		DB535A9E308FAFED00F88345 /* NaiveGaussianFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NaiveGaussianFilter.cpp; sourceTree = "<group>"; };
+		DBEB5202307DEEB700BC26D3 /* Metal Gaussian Blur */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Metal Gaussian Blur"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBEB520F307DF1B500BC26D3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DBEB5211307DF1BB00BC26D3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		DBEB5213307DF1C400BC26D3 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		DB53586130898E3E00F88345 /* Exceptions for "shaders" folder in "Gaussian Tests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				shader.metal,
+			);
+			target = DB53584E30898BF400F88345 /* Gaussian Tests */;
+		};
+		DB5358A9308BEB1D00F88345 /* Exceptions for "src" folder in "Gaussian Tests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				CPUReference.cpp,
+				GaussianFilter.cpp,
+				MetalContext.cpp,
+			);
+			target = DB53584E30898BF400F88345 /* Gaussian Tests */;
+		};
+		DB5358F6308DCFF800F88345 /* Exceptions for "shaders" folder in "Benchmark Gaussian Blur" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				shader.metal,
+			);
+			target = DB5358E0308DC5AE00F88345 /* Benchmark Gaussian Blur */;
+		};
+		DB535959308DD21900F88345 /* Exceptions for "src" folder in "Benchmark Gaussian Blur" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				CPUReference.cpp,
+				GaussianFilter.cpp,
+				MetalContext.cpp,
+			);
+			target = DB5358E0308DC5AE00F88345 /* Benchmark Gaussian Blur */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		DB2A675B308348870016EAEF /* Exceptions for "assets" folder in "Copy Files" phase from "Metal Gaussian Blur" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = DBEB5200307DEEB700BC26D3 /* CopyFiles */;
+			membershipExceptions = (
+				test.qoi,
+			);
+		};
+		DB2A6762308348BD0016EAEF /* Exceptions for "include" folder in "Compile Sources" phase from "Metal Gaussian Blur" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = DBEB51FE307DEEB700BC26D3 /* Sources */;
+			membershipExceptions = (
+				CPUReference.hpp,
+				GaussianFilter.hpp,
+			);
+		};
+		DB53585F30898E2C00F88345 /* Exceptions for "include" folder in "Compile Sources" phase from "Gaussian Tests" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = DB53584B30898BF400F88345 /* Sources */;
+			membershipExceptions = (
+				CPUReference.hpp,
+				GaussianFilter.hpp,
+				GaussianKernel.hpp,
+				ImageBuffer.hpp,
+				MetalContext.hpp,
+				QOI.h,
+			);
+		};
+		DB5358F4308DCFF300F88345 /* Exceptions for "include" folder in "Compile Sources" phase from "Benchmark Gaussian Blur" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = DB5358DD308DC5AE00F88345 /* Sources */;
+			membershipExceptions = (
+				CPUReference.hpp,
+				GaussianFilter.hpp,
+				GaussianKernel.hpp,
+				ImageBuffer.hpp,
+				MetalContext.hpp,
+				QOI.h,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		DB2A6759308348860016EAEF /* assets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DB2A675B308348870016EAEF /* Exceptions for "assets" folder in "Copy Files" phase from "Metal Gaussian Blur" target */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		DB2A6760308348BC0016EAEF /* include */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DB2A6762308348BD0016EAEF /* Exceptions for "include" folder in "Compile Sources" phase from "Metal Gaussian Blur" target */,
+				DB53585F30898E2C00F88345 /* Exceptions for "include" folder in "Compile Sources" phase from "Gaussian Tests" target */,
+				DB5358F4308DCFF300F88345 /* Exceptions for "include" folder in "Compile Sources" phase from "Benchmark Gaussian Blur" target */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		DB2A6766308348C10016EAEF /* src */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DB5358A9308BEB1D00F88345 /* Exceptions for "src" folder in "Gaussian Tests" target */,
+				DB535959308DD21900F88345 /* Exceptions for "src" folder in "Benchmark Gaussian Blur" target */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		DB2A676B308348C80016EAEF /* shaders */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DB53586130898E3E00F88345 /* Exceptions for "shaders" folder in "Gaussian Tests" target */,
+				DB5358F6308DCFF800F88345 /* Exceptions for "shaders" folder in "Benchmark Gaussian Blur" target */,
+			);
+			path = shaders;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DB53584C30898BF400F88345 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB53586230898E8200F88345 /* Metal.framework in Frameworks */,
+				DB53586430898E9B00F88345 /* QuartzCore.framework in Frameworks */,
+				DB53586330898E9200F88345 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB5358DE308DC5AE00F88345 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB535957308DD1C400F88345 /* Metal.framework in Frameworks */,
+				DB5358ED308DCFCD00F88345 /* QuartzCore.framework in Frameworks */,
+				DB5358EC308DCFC000F88345 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DBEB51FF307DEEB700BC26D3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBEB5214307DF1C400BC26D3 /* Metal.framework in Frameworks */,
+				DBEB5212307DF1BB00BC26D3 /* QuartzCore.framework in Frameworks */,
+				DBEB5210307DF1B500BC26D3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DB53583F308813BA00F88345 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				DB53585730898D5200F88345 /* test_kernel.cpp */,
+				DB5358A3308BDE1200F88345 /* test_gpu.cpp */,
+				DB5358A4308BDE2800F88345 /* test_cpu.cpp */,
+				DB5358A6308BDE3600F88345 /* test_qoi.cpp */,
+			);
+			path = tests;
+			sourceTree = "<group>";
+		};
+		DB5358413088149600F88345 /* benchmark */ = {
+			isa = PBXGroup;
+			children = (
+				DB5358423088149D00F88345 /* benchmark.cpp */,
+				DB5359E2308E848800F88345 /* naive.metal */,
+				DB535A12308E9F9500F88345 /* NaiveGaussianFilter.hpp */,
+				DB535A9E308FAFED00F88345 /* NaiveGaussianFilter.cpp */,
+			);
+			path = benchmark;
+			sourceTree = "<group>";
+		};
+		DBEB51F9307DEEB700BC26D3 = {
+			isa = PBXGroup;
+			children = (
+				DBEB520E307DF1B400BC26D3 /* Frameworks */,
+				DBEB5203307DEEB700BC26D3 /* Products */,
+				DB2A6759308348860016EAEF /* assets */,
+				DB2A6760308348BC0016EAEF /* include */,
+				DB2A6766308348C10016EAEF /* src */,
+				DB2A676B308348C80016EAEF /* shaders */,
+				DB53583F308813BA00F88345 /* tests */,
+				DB5358413088149600F88345 /* benchmark */,
+			);
+			sourceTree = "<group>";
+		};
+		DBEB5203307DEEB700BC26D3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DBEB5202307DEEB700BC26D3 /* Metal Gaussian Blur */,
+				DB53584F30898BF400F88345 /* Gaussian Tests */,
+				DB5358E1308DC5AE00F88345 /* Benchmark Gaussian Blur */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DBEB520E307DF1B400BC26D3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DB5358EA308DCFBA00F88345 /* MetalKit.framework */,
+				DBEB5213307DF1C400BC26D3 /* Metal.framework */,
+				DBEB5211307DF1BB00BC26D3 /* QuartzCore.framework */,
+				DBEB520F307DF1B500BC26D3 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DB53584E30898BF400F88345 /* Gaussian Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB53585330898BF400F88345 /* Build configuration list for PBXNativeTarget "Gaussian Tests" */;
+			buildPhases = (
+				DB53584B30898BF400F88345 /* Sources */,
+				DB53584C30898BF400F88345 /* Frameworks */,
+				DB53584D30898BF400F88345 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Gaussian Tests";
+			packageProductDependencies = (
+			);
+			productName = "Gaussian Tests";
+			productReference = DB53584F30898BF400F88345 /* Gaussian Tests */;
+			productType = "com.apple.product-type.tool";
+		};
+		DB5358E0308DC5AE00F88345 /* Benchmark Gaussian Blur */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB5358E5308DC5AE00F88345 /* Build configuration list for PBXNativeTarget "Benchmark Gaussian Blur" */;
+			buildPhases = (
+				DB5358DD308DC5AE00F88345 /* Sources */,
+				DB5358DE308DC5AE00F88345 /* Frameworks */,
+				DB5358DF308DC5AE00F88345 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Benchmark Gaussian Blur";
+			packageProductDependencies = (
+			);
+			productName = "Benchmark Gaussian Blur";
+			productReference = DB5358E1308DC5AE00F88345 /* Benchmark Gaussian Blur */;
+			productType = "com.apple.product-type.tool";
+		};
+		DBEB5201307DEEB700BC26D3 /* Metal Gaussian Blur */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DBEB5209307DEEB700BC26D3 /* Build configuration list for PBXNativeTarget "Metal Gaussian Blur" */;
+			buildPhases = (
+				DBEB51FE307DEEB700BC26D3 /* Sources */,
+				DBEB51FF307DEEB700BC26D3 /* Frameworks */,
+				DBEB5200307DEEB700BC26D3 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				DB2A6759308348860016EAEF /* assets */,
+				DB2A6760308348BC0016EAEF /* include */,
+				DB2A6766308348C10016EAEF /* src */,
+				DB2A676B308348C80016EAEF /* shaders */,
+			);
+			name = "Metal Gaussian Blur";
+			packageProductDependencies = (
+			);
+			productName = "Accelerated Image Processor";
+			productReference = DBEB5202307DEEB700BC26D3 /* Metal Gaussian Blur */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DBEB51FA307DEEB700BC26D3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 2710;
+				TargetAttributes = {
+					DB53584E30898BF400F88345 = {
+						CreatedOnToolsVersion = 27.1;
+					};
+					DB5358E0308DC5AE00F88345 = {
+						CreatedOnToolsVersion = 27.1;
+					};
+					DBEB5201307DEEB700BC26D3 = {
+						CreatedOnToolsVersion = 26.6;
+						LastSwiftMigration = 2660;
+					};
+				};
+			};
+			buildConfigurationList = DBEB51FD307DEEB700BC26D3 /* Build configuration list for PBXProject "Metal Gaussian Blur" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DBEB51F9307DEEB700BC26D3;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = DBEB5203307DEEB700BC26D3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DBEB5201307DEEB700BC26D3 /* Metal Gaussian Blur */,
+				DB53584E30898BF400F88345 /* Gaussian Tests */,
+				DB5358E0308DC5AE00F88345 /* Benchmark Gaussian Blur */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DB53584B30898BF400F88345 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB535AA5308FD6B400F88345 /* NaiveGaussianFilter.cpp in Sources */,
+				DB5358D2308D44AC00F88345 /* test_gpu.cpp in Sources */,
+				DB5358A5308BDE3100F88345 /* test_cpu.cpp in Sources */,
+				DB53585830898DB600F88345 /* test_kernel.cpp in Sources */,
+				DB5358A7308BDE3B00F88345 /* test_qoi.cpp in Sources */,
+				DB535AA6308FDBC800F88345 /* naive.metal in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB5358DD308DC5AE00F88345 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB535A13308EA3A500F88345 /* NaiveGaussianFilter.hpp in Sources */,
+				DB5359E3308E848E00F88345 /* naive.metal in Sources */,
+				DB535A9F308FAFFA00F88345 /* NaiveGaussianFilter.cpp in Sources */,
+				DB5358E9308DC5B900F88345 /* benchmark.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DBEB51FE307DEEB700BC26D3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		DB53585430898BF400F88345 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				"HEADER_SEARCH_PATHS[arch=*]" = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/homebrew/opt/googletest/lib,
+				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = /opt/homebrew/Cellar/googletest/1.18.0/lib;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lgtest",
+					"-lgtest_main",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					"\"$(PROJECT_DIR)/metal-cpp-main\"",
+					/opt/homebrew/opt/googletest/include,
+				);
+			};
+			name = Debug;
+		};
+		DB53585530898BF400F88345 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				"HEADER_SEARCH_PATHS[arch=*]" = /opt/homebrew/Cellar/googletest/1.18.0/lib;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/homebrew/opt/googletest/lib,
+				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = /opt/homebrew/Cellar/googletest/1.18.0/lib;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lgtest",
+					"-lgtest_main",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					"\"$(PROJECT_DIR)/metal-cpp-main\"",
+					/opt/homebrew/opt/googletest/include,
+				);
+			};
+			name = Release;
+		};
+		DB5358E6308DC5AE00F88345 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/metal-cpp-main\"",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					Metal,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DB5358E7308DC5AE00F88345 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/metal-cpp-main\"",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					Metal,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DBEB5207307DEEB700BC26D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/$(TARGET_NAME)";
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+			};
+			name = Debug;
+		};
+		DBEB5208307DEEB700BC26D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/$(TARGET_NAME)";
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+			};
+			name = Release;
+		};
+		DBEB520A307DEEB700BC26D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++23";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/metal-cpp-main";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		DBEB520B307DEEB700BC26D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++23";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/metal-cpp-main";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DB53585330898BF400F88345 /* Build configuration list for PBXNativeTarget "Gaussian Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB53585430898BF400F88345 /* Debug */,
+				DB53585530898BF400F88345 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DB5358E5308DC5AE00F88345 /* Build configuration list for PBXNativeTarget "Benchmark Gaussian Blur" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB5358E6308DC5AE00F88345 /* Debug */,
+				DB5358E7308DC5AE00F88345 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DBEB51FD307DEEB700BC26D3 /* Build configuration list for PBXProject "Metal Gaussian Blur" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DBEB5207307DEEB700BC26D3 /* Debug */,
+				DBEB5208307DEEB700BC26D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DBEB5209307DEEB700BC26D3 /* Build configuration list for PBXNativeTarget "Metal Gaussian Blur" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DBEB520A307DEEB700BC26D3 /* Debug */,
+				DBEB520B307DEEB700BC26D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DBEB51FA307DEEB700BC26D3 /* Project object */;
+}

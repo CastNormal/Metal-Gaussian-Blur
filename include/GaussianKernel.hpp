@@ -1,6 +1,8 @@
 #pragma once
 
 #include <array>
+#include <cmath>
+#include <stdexcept>
 
 #define MAX_KERNEL_SIZE 16
 
@@ -11,8 +13,11 @@ struct GaussianKernel {
     };
 
 inline void generateGaussianKernel(int sigma, GaussianKernel &gaus) {
+    
+    if (sigma < 1 || sigma > (MAX_KERNEL_SIZE - 1)/3)
+        throw std::invalid_argument("Invalid sigma");
 
-    int radius = 3 * sigma;
+    const int radius = 3 * sigma;
     if (sigma < 1 || radius >= MAX_KERNEL_SIZE) throw std::invalid_argument("Invalid standard deviation");
 
 

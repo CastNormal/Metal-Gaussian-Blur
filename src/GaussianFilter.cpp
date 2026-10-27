@@ -23,8 +23,6 @@ horizontalPipelineState(nullptr), verticalPipelineState(nullptr), intermediateTe
     
     if (!intermediateTexture)
         throw std::runtime_error("Failed to create texture.");
-            
-    
 }
 
 void GaussianFilter::encode(MTL::CommandBuffer* commandBuffer, MTL::Buffer* inputBuffer, int sigma) {
@@ -80,10 +78,7 @@ NS::SharedPtr<MTL::ComputePipelineState> GaussianFilter::createPipelineState(MTL
     
     NS::SharedPtr<MTL::Function> func = NS::TransferPtr(library->newFunction(strName));
     
-    if (!func) {
-        std::cerr << "Shader function not found: " << name << std::endl;
-        return nullptr;
-    }
+    if (!func) throw std::runtime_error(std::string("Shader function not found: ") + name);
     
     NS::SharedPtr<MTL::ComputePipelineState> pipelineState = NS::TransferPtr(device->newComputePipelineState(func.get(), &error));
     

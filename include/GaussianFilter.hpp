@@ -31,4 +31,4 @@ private:
     void generateGaussianKernel(int sigma);
 };
 
-#endif
+#endif // !GAUSSIAN_FILTER_HPP_

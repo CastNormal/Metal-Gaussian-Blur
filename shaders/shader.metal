@@ -1,6 +1,6 @@
 #include <metal_stdlib>
 
-[[kernel]] void gaussian_blur_horizontal(constant uchar4 *in                    [[buffer(0)]],
+[[kernel]] void gaussian_blur_horizontal(const device uchar4 *in                 [[buffer(0)]],
                                constant float *gaussianKernel                   [[buffer(1)]],
                                constant int &gaussianKernelSize                 [[buffer(2)]],
                                metal::texture2d<float, metal::access::write> out[[texture(0)]],
@@ -47,19 +47,19 @@
 
 [[kernel]] void gaussian_blur_vertical(metal::texture2d<float, metal::access::read> in  [[texture(0)]],
                                 device uchar4 *out                                      [[buffer(0)]],
-                                constant float *gaus_kernel                             [[buffer(1)]],
-                                constant int &gaus_kernel_size                          [[buffer(2)]],
+                                constant float *GaussianKernel                          [[buffer(1)]],
+                                constant int &GaussianKernelSize                        [[buffer(2)]],
                                 uint2 gid                                               [[thread_position_in_grid]],
-                                uint2 tid                                             [[thread_position_in_threadgroup]],
+                                uint2 tid                                              [[thread_position_in_threadgroup]],
                                 uint2 groupSize                                         [[threads_per_threadgroup]],
                                 threadgroup float4* sharedBlock                         [[threadgroup(0)]]) {
     int width = in.get_width();
     int height = in.get_height();
     
-    int cache_height = groupSize.y + (gaus_kernel_size-1)*2;
+    int cache_height = groupSize.y + (GaussianKernelSize-1)*2;
     
     for (int i = tid.y; i < cache_height; i += groupSize.y) {
-        int offset = gid.y - tid.y + i - (gaus_kernel_size - 1);
+        int offset = gid.y - tid.y + i - (GaussianKernelSize - 1);
         
         int clamped_y = metal::clamp(offset, 0, height - 1);
         int clamped_x = metal::clamp(int(gid.x), 0, width - 1);
@@ -72,12 +72,12 @@
     //boundary con
     if (gid.x >= uint(width) || gid.y >= uint(height)) return;
     
-    int pos = tid.x * cache_height + tid.y + gaus_kernel_size - 1;
-    float4 mid = sharedBlock[pos] * gaus_kernel[0];
+    int pos = tid.x * cache_height + tid.y + GaussianKernelSize - 1;
+    float4 mid = sharedBlock[pos] * GaussianKernel[0];
     float4 weighted_sum = mid;
     
-    for (int i = 1; i < gaus_kernel_size; i++) {
-        weighted_sum += (sharedBlock[pos - i] + sharedBlock[pos + i]) * gaus_kernel[i];
+    for (int i = 1; i < GaussianKernelSize; i++) {
+        weighted_sum += (sharedBlock[pos - i] + sharedBlock[pos + i]) * GaussianKernel[i];
     }
     
     out[gid.x + gid.y * width] = uchar4(metal::saturate(weighted_sum) * 255 + 0.5f);
