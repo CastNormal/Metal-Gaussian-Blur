@@ -179,16 +179,34 @@ inline bool qoi_read_byte(FILE* file, uint8_t* value) {
 inline void *qoi_decoder(FILE *file, QOI_header_info *info) {
     if (file == NULL || info == NULL) return NULL;
     if (read_uint32(file) != QOI_FOUNDATION_HEADER) return NULL;
+        
     info->width = read_uint32(file);
     info->height = read_uint32(file);
-    fgetc(file); // Discard incoming file's native channel configurations info block
-    info->channels = QOI_RGBA; // Enforce layout alignment
-    info->colorspace = fgetc(file);
-    
 
-    uint64_t size = (uint64_t)info->width * info->height * QOI_RGBA;
-    uint64_t buffer_size = round_to_page_size(size);
-    
+    const int fileChannels = fgetc(file);
+    const int fileColorspace = fgetc(file);
+
+    if ((fileChannels != 3 && fileChannels != 4) ||
+        (fileColorspace != 0 && fileColorspace != 1))
+        return nullptr;
+
+    constexpr uint64_t MAX_PIXELS = 100'000'000ULL;
+
+    const uint64_t pixels =
+        uint64_t(info->width) * info->height;
+
+    if (pixels == 0 || pixels > MAX_PIXELS)
+        return nullptr;
+
+    const uint64_t size = pixels * 4;
+    const uint64_t buffer_size = round_to_page_size(size);
+
+    if (buffer_size < size)
+        return nullptr;
+
+    // The decoder always returns RGBA8.
+    info->channels = 4;
+    info->colorspace = static_cast<uint8_t>(fileColorspace);
     
     if (info->width <= 0 || info->width >= QOI_MAX_WIDTH || info->height <= 0 || info->height >= QOI_MAX_HEIGHT) return NULL;
         

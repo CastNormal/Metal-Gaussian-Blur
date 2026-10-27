@@ -188,7 +188,7 @@ std::pair<BenchmarkConfig, std::string> parseInput(int argc, char** argv) {
     if (config.gpuIterations < 0) throw std::invalid_argument("Invalid gpu iterations");
     
     if (--argc > 0) config.cpuIterations = std::atoi(argv[4]);
-    if (config.gpuIterations < 0) throw std::invalid_argument("Invalid cpu iterations");
+    if (config.cpuIterations < 0) throw std::invalid_argument("Invalid cpu iterations");
     
     if (argc > 1) throw std::invalid_argument("Usage: benchmark [image.qoi] [sigma 1..5] [GPU runs] [CPU runs]");
     
