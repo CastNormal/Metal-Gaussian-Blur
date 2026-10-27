@@ -104,7 +104,7 @@ The original archive contained 100-run CSVs for a **418 × 418**, σ = 5 experim
 |---|---:|
 | CPU reference (wall-clock) | 40.87 ms |
 | Naïve GPU (GPU timestamp) | 0.527 ms |
-| Tiled GPU (GPU timestamp) | 0.476 ms
+| Tiled GPU (GPU timestamp) | 0.476 ms |
 For this small image, the naïve GPU was approximately **1.27× faster** than tiled. A separate earlier set of user-collected measurements for **2528 × 4497**, σ = 5 is preserved under `benchmark/results/`: the naïve GPU median was **0.527 ms** and the tiled GPU median was **0.476 ms** (approximately **9.7% faster** when tiled). The large-image CPU dataset contains only a single run; the build configuration for that older measurement was not independently verified.
 
 This time, rather than using `assets/test.qoi` (418 × 418), the benchmark was ran with `assets/test3.qoi` (2528 × 4497), again with σ = 5. The improvement difference become more concrete with a bigger image. This time the naïve GPU median was **19.88 ms** and the tiled GPU median was **14.27 ms** which is approixmately **28.2% faster** when tiled.
